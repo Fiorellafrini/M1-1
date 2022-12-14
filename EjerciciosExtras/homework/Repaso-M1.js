@@ -1,3 +1,4 @@
+const { captureRejectionSymbol } = require('@11ty/eleventy/src/Util/AsyncEventEmitter.js')
 const {
     Queue,
     Node,
@@ -14,15 +15,24 @@ const {
 // Pista: utilizar el método Array.isArray() para determinar si algun elemento de array es un array anidado
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
+//    const array = [1, [2, [3,4]], [5,6], 7];
 var countArray = function(array) {
     // Tu código aca:
-    
+    let count = 0
+    for (let i = 0; i < array.length; i++) {
+       if ( Array.isArray (array[i]) ) {
+        count += countArray(array[i])
+       }else{
+        count += array[i]
+       }
+    }
+    return count 
 }
 
+console.log (countArray([1, [2, [3,4]], [5,6], 7]))
+console.log (countArray([]))
 
-// Implementar la función countProps: a partir de un objeto en el cual cada propiedad puede contener
-// cualquier tipo de dato, determinar la cantidad de propiedades de objetos en cualquier nivel, ya sea el inicial
-// u objetos anidados
+// Implementar la función countProps: a partir de un objeto en el cual cada propiedad puede contener cualquier tipo de dato, determinar la cantidad de propiedades de objetos en cualquier nivel, ya sea el inicial u objetos anidados 
 // Ejemplo:
 // var obj = {
 //   a: {
@@ -37,10 +47,24 @@ var countArray = function(array) {
 // dentro de a tenemos 3 propiedades mas, luego a3 tiene otras 3 y por ultimo c tiene una extra.
 // Propiedades: a, a1, a2, a3, f, a, c, o, b, c --> 10 en total
 
+// × debe determinar la cantidad correcta de propiedades de un objeto (1 ms)
+//     × debe determinar la cantidad correcta de propiedades de un objeto, incluso con objetos aninados dentro del primero (1 ms)
+
 var countProps = function(obj) {
     // Tu código aca:
-
+    var count = 0;
+  for (const prop in obj) {             // si tengo propiedades en mi objero 
+    count ++                            // recorrelo
+  if ( typeof obj[prop] === "object" && !Array.isArray(obj[prop]) ){
+    count += countProps(obj[prop])
+  }
+ }
+  return count 
 }
+
+        
+
+
 
 
 // Implementar el método changeNotNumbers dentro del prototype de LinkedList que deberá cambiar
@@ -53,7 +77,17 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
+let current= this.head 
+let count = 0
 
+while (current){
+if (isNaN(Number(current.value)) ){ 
+    current.value = 'Kiricocho'
+    count ++
+}
+current = current.next
+}
+return count
 }
 
 
@@ -65,11 +99,20 @@ LinkedList.prototype.changeNotNumbers = function(){
 // mergeQueues(queueOne, queueTwo) --> [7,2,3,4,5,6]
 // IMPORTANTE: NO son arreglos sino que son Queues.
 
+// - enqueue: agrega un valor respetando el orden.
+// - dequeue: remueve un valor respetando el orden. Retorna undefined cuando la queue está vacía.
+// - size: retorna el tamaño (cantidad de elementos) de la queue.
+
 var mergeQueues = function(queueOne, queueTwo) {
-    // Tu código aca:
+        // Tu código aca:
 
+const miQueue = new Queue();
+ while (queueOne.size() || queueTwo.size()) {
+        if (queueOne.size()) miQueue.enqueue( queueOne.dequeue());
+        if (queueTwo.size()) miQueue.enqueue( queueTwo.dequeue());
+ }
+ return miQueue
 }
-
 
 // Implementar la funcion closureMult que permita generar nuevas funciones que representen
 // las tablas de multiplicación de distintos numeros
@@ -82,7 +125,10 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
-
+  
+    return function (num){
+        return multiplier * num
+    }
 }
 
 // Implementar el método sum dentro del prototype de BinarySearchTree
@@ -91,6 +137,7 @@ BinarySearchTree.prototype.sum = function() {
     // Tu código aca:
 
 }
+
 
 module.exports = {
     countArray,

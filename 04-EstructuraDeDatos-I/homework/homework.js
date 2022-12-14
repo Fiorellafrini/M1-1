@@ -1,24 +1,101 @@
 'use strict'
 
+const { textoAsteriscos } = require("../../03-JavaScriptAvanzado-II/homework/homework")
+
 /*
 Definir las funciones recursivas nFactorial y nFibonacci.
 
 nFactorial(n) debe retornar el factorial de n sabiendo que, siendo n un número natural, su factorial (representado como n!) es el producto de n por todos los números naturales menores que él y mayores a 0. Ejemplo: 5! = 5 * 4 * 3 * 2 * 1
 
-nFibonacci(n) debe retornar el enésimo número de la secuencia de Fibonacci, tomando al 0 y al 1, respectivamente, como primer y segundo elementos de la misma, y sabiendo que cualquier elemento que se agregue a esta secuencia será el resultado de la suma del último elemento y el anterior.
-Ejemplo: nFibonacci(7) retornará 13, ya que 13 es el dígito que está en la posición 7 de la secuencia.
 
-Secuencia:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ... 
 
 
 Como ejercicio adicional y completamente opcional, al terminar de resolver este problema pueden intentar definir funciones que logren los mismos resultados pero de manera iterativa.
 */
-
+// retornar el factorial de n 
 function nFactorial(n) {
+  if (n === 0){
+    return 1
+  }
+  return n * nFactorial(n-1)
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // if (n === 1 || n === 0) // Tambien puede ser if ( n < 1 && > -1)
+  // return 1
+  // else{
+  //   return n * nFactorial(n-1)
+  // }
+  // }
+// debe retornar el enésimo número de la secuencia, tomando al 0 y al 1, respectivamente,
+// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ... el segundo se obtiene sumando los dos numeros anteriores
+//0+1=1 ; 2+1=3 ; 2+3=5
+// n = 0 ------> 0
+// n = 1 -------> 1
+// n= 2 --------> 1+0 = 1
+// n= 3 ---------> 1+1=2
+// n= 4 ---------> 2+1= 3
+// n= 5 ---------> 3+2= 5
+
+
+
+// nFibonacci(n) debe retornar el enésimo número de la secuencia de Fibonacci, tomando al 0 y al 1, respectivamente, como primer y segundo elementos de la misma, y sabiendo que cualquier elemento que se agregue a esta secuencia será el resultado de la suma del último elemento y el anterior.
+// Ejemplo: nFibonacci(7) retornará 13, ya que 13 es el dígito que está en la posición 7 de la secuencia.
+
+// Secuencia:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ... 
 function nFibonacci(n) {
+
+// if (n === 0 ) return 0
+// if (n === 1) return 1
+// return nFibonacci (n-1) + nFibonacci (n-2)
+// }
+
+
+var fib = [0,1]
+
+for (let i = 2; i <= n; i++) {
+
+ fib[i]= fib[i-1] + fib[i-2]
 }
+return fib[n]    //porque n ????? 
+}
+
+
+// console.log (nFibonacci(3))
+
+
+
+
+  //   if (n < 2 )return n // if ( n=== 0) return 0 if (n===1) return 1
+//     return nFibonacci ( n-2) + nFibonacci(n-1)
+// }
+
+
+
+
+// const fib = [0,1]
+// for ( let i = 2; i<= n; i++ ){
+//   fib[i]= fib[i-2] + fib[i-1]
+//   }
+//   return fib[n]
+//   }
+
+
+
+
+
 
 /*
 Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde el primer elemento que ingresa es el primero que se quita. Definir los siguientes métodos:
@@ -29,10 +106,62 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 Pueden utilizar class o función constructora.
 */
 
-function Queue() {
-
+function Queue () {
+  this.arr = []
+}
+Queue.prototype.enqueue = function (elemento){
+this.arr.push (elemento)
 }
 
+Queue.prototype.dequeue = function (){
+return this.arr.shift()
+}
+
+Queue.prototype.size = function (){
+return this.arr.length
+}
+
+const miQueue = new Queue()
+
+console.log(miQueue)
+miQueue.enqueue(5 )
+miQueue.enqueue(7)
+console.log(miQueue)
+miQueue.dequeue()
+console.log (miQueue)
+miQueue.size()
+
+
+
+
+
+
+
+
+
+
+// function Queue() {
+//   this.arr= []
+// }
+  
+//   Queue.prototype.enqueue= function(elemento){
+//     this.arr.push(elemento);
+//   }
+//   Queue.prototype.dequeue= function(){
+//     return this.arr.shift();
+
+//     }
+  
+//   Queue.prototype.size= function(){ 
+//     return this.arr.length
+
+//   } 
+
+//   var miQueue = new Queue()
+
+// console.log(miQueue)
+// miQueue.enqueue(elemento)
+// console.log(miQueue)
 // No modifiquen nada debajo de esta linea
 // --------------------------------
 
