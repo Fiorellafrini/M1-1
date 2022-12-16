@@ -39,7 +39,7 @@ function BinarySearchTree(value) {
         // return value
       }
     }
-  return false 
+  return false; 
 }
 
 const miArbol = new BinarySearchTree(7)
